@@ -1,49 +1,40 @@
-print('Iniciando crawleo')
-
-# importar biblioteca para requisições http
+print('Getting Started bot')
+# import libraries
 import requests
-
 from selenium.webdriver import Firefox
 browser = Firefox ()
+######----screen position----##########
 browser.set_window_position(0, 0)
+######----screen size----##########
 browser.set_window_size(1300, 850)
-
-#entra na url
-browser.get('url do site')
-#tira print
-browser.save_screenshot('/pastadestino.png')
+#####-------starting list of sites--------######
+##############---site---####################
+browser.get("http://www.site.com");
+browser.save_screenshot('/home/sitephoto.png')
 print('print site')
-from time import sleep
-sleep(1)
-
-#iniciar encerramento do programa
-print('Execucao concluida com sucesso')
-for cont in range(1, -1, -1):
-    sleep(1)
-print('encerrando crawleo')
-for cont in range(1, -1, -1):
-    sleep(1)
-
+site={'photo':open('//home/sitephoto.png','rb')}
+resp = requests.post('https://api.telegram.org/bot<<token>>/sendPhoto?chat_id=<<chat_id>>',files=site)
+print('print Sent')
+#########----start program shutdown----#########
+print('Execution completed successfully')
+print('Shutting down bot')
 browser.quit()
-
-
-#inicio do envio da mensagem via telegram
+#start sending the message via telegram
 def send_message(token, chat_id, message):
     try:
         data = {"chat_id": chat_id, "text": msg}
         url = "https://api.telegram.org/bot{}/sendMessage".format(token)
         requests.post(url, data)
     except Exception as e:
-        print("Erro no sendMessage:", e)
-# token único utilizado para manipular o bot (não deve ser compartilhado)
-token = 'token'
-# id do chat que será enviado as mensagens
-chat_id = 'id'
-# mensagem
-msg = "msg"
-# enviar a mensagem
+        print("Error in sendMessage:", e)
+# unique token used to manipulate the bot (must not be shared)
+token = '<<token>>'
+# chat id to send messages
+chat_id = '<<chat_id>>'
+# message
+msg = "<<msg>>"
+# send the message
 send_message(token, chat_id, msg)
-
-print('mensagem enviada com sucesso')
-
-#fim
+# message
+print('Message sent successfully')
+#end
